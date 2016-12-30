@@ -10,7 +10,7 @@
 			<div class="page-section">
 				<?php include_once "incs/header.inc";?>
 				<div class="page-content">
-					 <?php include_once "incs/vexations.inc"; ?>
+					 <?php include_once "incs/avexation.inc"; ?>
 				</div>
 			</div>
 		</div>
