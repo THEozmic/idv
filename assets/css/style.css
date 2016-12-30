@@ -247,3 +247,20 @@ a {
 .page-loader {
     -webkit-animation: rotating 2s linear infinite;
 }
+
+
+.kawo-tooltip {
+    max-width: 200px;
+    padding: 5px 8px;
+    font-size: 14px;
+    margin-top: 5px;
+    color: #fff;
+    background-color: #333;
+    border-radius: 2px;
+}
+
+.kawo-tooltip-arrow {
+    border: 6px solid #333;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+}

@@ -65,9 +65,13 @@ validateLastVexClicked = function () {
 function loadPage (pageName, putWhere, callBack) {
 	// don't laugh at this ...
 	var putHere = putWhere
+	// show page Loader
+	pageLoader.show()
 
 	// ajax call
 	$.post( pageName, function( data ) {
+		// remove loader
+		pageLoader.hide()
 		// insert the data gotten
 		$(putHere).html(data)
 
@@ -76,6 +80,10 @@ function loadPage (pageName, putWhere, callBack) {
 			callBack()
 
 		}
+		// load tooltip script
+		var url = "./assets/js/kawo-tooltip.js"
+		$.getScript(url)
+
 		setClickListeners()
 	})
 }
