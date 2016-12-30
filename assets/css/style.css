@@ -172,3 +172,28 @@ a {
     color: #9E9E9E;
     margin: 0px 10px;
 }
+
+.rant-box {
+    min-width: 96%;
+    min-height: 120px;
+    max-width: 96%;
+    border: 1px solid #d4d4d4;
+    border-radius: 3px;
+    margin: 10px 0px;
+    color: #444343;
+    padding: 10px;
+}
+
+.secondary {
+    background-color: #7986cb;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 3px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.comments-header {
+    font-size: 14px;
+    color: #9E9E9E;
+}
