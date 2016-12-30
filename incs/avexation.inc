@@ -9,9 +9,8 @@ $pdo = Database::connect();
            		$comments_count = $row2["count(*)"];
            }
                     ?>
-                    <div class="nav"><a href="./#<?php echo $row['id']; ?>">← Back</div>
+<div class="nav"><a class= "back" href="./#<?php echo $row['id']; ?>">← Back</a></div>
 <div class="vexation">
-
 	<div class="vexation-content">
 		<?php echo $row['content']; ?><span class="username">— #<?php echo $row['id']; ?></span>
 	</div>
@@ -23,11 +22,6 @@ $pdo = Database::connect();
 		<span class="inside">12.11.16 02:15pm</span>
 	</div>
 	<div class="comments">
-		<div class="comments-card">
-			<div class="comments-header">Post a comment</div>
-				<textarea class="rant-box"></textarea>
-				<a class="secondary">POST</a>
-		</div>
 		<?php
 			$sql1 =  "SELECT * FROM comments WHERE vexationid = {$id}";
 
@@ -46,7 +40,11 @@ $pdo = Database::connect();
 	           	<?php
 	           }
 		?>
-
+		<div class="comments-card">
+			<div class="comments-header">Post a comment</div>
+				<textarea class="rant-box"></textarea>
+				<a class="secondary post-comment">POST</a>
+		</div>
 	</div>
 </div>
 

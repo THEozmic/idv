@@ -10,10 +10,11 @@
 			<div class="page-section">
 				<?php include_once "incs/header.inc";?>
 				<div class="page-content">
-					 <?php include_once "incs/vexations.inc"; ?>
+					<div class="page-loader"></div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src='assets/js/core.js'></script>
 </body>
 </html>

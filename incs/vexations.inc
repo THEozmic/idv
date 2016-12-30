@@ -9,9 +9,9 @@ $pdo = Database::connect();
            		$comments_count = $row2["count(*)"];
            }
                     ?>
-<div class="vexation" id="<?php echo $row['id']?>">
+<div class="vexation" >
 	<div class="vexation-content">
-		<a href="vexation-<?php echo $row['id']; ?>"><?php echo $row['content']; ?><span class="username">— #<?php echo  $row['id']; ?></span></a>
+		<a class="avexation" id="<?php echo $row['id']?>" href="vexation-<?php echo $row['id']; ?>"><?php echo $row['content']; ?><span class="username">— #<?php echo  $row['id']; ?></span></a>
 	</div>
 	<div class="vexation-footer">
 		<a class="actionable" href="#novex"><span class="novex emotion"><span class="icon novex"></span> <?php echo $row['novexs']; ?></span></a>
