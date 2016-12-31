@@ -1,3 +1,6 @@
+<div class="error alert"></div>
+<div class="success alert"></div>
+<div class="info alert"></div>
 <div class="page-header">
 					<div class="brand"><a href="./">I DEYVEX</div>
 					<div class="other-links">

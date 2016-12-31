@@ -113,7 +113,7 @@
 					tooltip.style.visibility = 'visible';
 					visible = true;
 
-				}, 100 );
+				}, 0 );
 
 				// GET THE TEXT FOR THE TOOLTIP FROM THE 'data-tooltip' ATTRIBUTE
 				span.innerHTML = e.target.getAttribute( 'data-tooltip' );
@@ -167,7 +167,7 @@
 			if ( showTimeout ) clearTimeout( showTimeout );
 
 			// IF A TOOLTIP IS VISIBLE & NO TIMEOUT › SET TIMEOUT
-			if ( visible && !hideTimeout ) hideTimeout = setTimeout( hideTooltip, 0 );
+			if ( visible && !hideTimeout ) hideTimeout = setTimeout( hideTooltip, 600 );
 
 		}, true );
 

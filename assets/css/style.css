@@ -126,7 +126,7 @@ html, body {
 
 .emotion {
     font-size: 12px;
-    padding: 7px;
+    padding: 10px;
     background-color: #9FA8DA;
     border-radius: 3px;
     color: white;
@@ -140,9 +140,9 @@ html, body {
 .inside {
     font-size: 10px;
     float: right;
-    padding-top: 10px;
-    color: #d4d2d2;
-    padding: 15px 0px;
+    padding-top: 15px;
+    color: #c2caf5;
+    line-height: 0;
 }
 
 a {
@@ -155,7 +155,7 @@ a {
 }
 
 .inside:hover {
-    color: #444343;
+    color: #7986cb;
 }
 
 .comments-card {
@@ -171,7 +171,7 @@ a {
     margin-top: 20px;
 }
 
-.username {
+.small-text {
     font-size: 15px;
     color: #9E9E9E;
     margin: 0px 10px;
@@ -263,4 +263,34 @@ a {
     border: 6px solid #333;
     border-bottom-color: transparent;
     border-right-color: transparent;
+}
+
+.error.alert {
+    background-color: #F44336;
+     display: none;
+}
+
+.alert {
+    margin: 5px auto;
+    text-align: center;
+    color: white;
+    padding: 5px;
+    position: fixed;
+    width: 47%;
+    border-radius: 3px;
+}
+
+.success.alert {
+     display: none;
+     background-color: #2196F3;
+}
+
+.info.alert {
+     display: none;
+     background-color: #7986cb;
+}
+
+.actionable {
+    cursor: pointer;
+    padding: 10px 0px;
 }

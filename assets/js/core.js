@@ -11,10 +11,36 @@ var lastVexedClicked
 // adnd it's id ...
 var lastVexedClickedID
 
+// messages begin
+var error
+
+var success
+
+var info
+// messages end
+
+var comment
+
+var noCommentsElement
+
+var wait = false
+
+var time
+
 $(document).ready(function() {
 	var thisPage = location.href
 	// Save the page loader thingy
 	pageLoader = $('.page-loader')
+
+	// get error element
+	error = $('.error.alert')
+
+	// get success element
+	success = $('.success.alert')
+
+	// get info element
+	info = $('.info.alert')
+
 	// Checking to see if the page is the home page ... since this script will be included into various files
 
 	if ((thisPage == "http://localhost/idv") || (thisPage == "http://localhost/idv/")) {
@@ -36,6 +62,8 @@ $(document).ready(function() {
 	}
 
 	showSingleVexation()
+
+
 })
 
 
@@ -73,6 +101,7 @@ function loadPage (pageName, putWhere, callBack) {
 		// remove loader
 		pageLoader.hide()
 		// insert the data gotten
+		$(putHere).html("")
 		$(putHere).html(data)
 
 		// run the callBack funtion if there is one
@@ -80,11 +109,15 @@ function loadPage (pageName, putWhere, callBack) {
 			callBack()
 
 		}
+
 		// load tooltip script
 		var url = "./assets/js/kawo-tooltip.js"
 		$.getScript(url)
 
+
+		// vital tool for setting all click listeners since page loades dynamically. We set the listeners when a new page is dynamically loaded
 		setClickListeners()
+
 	})
 }
 
@@ -141,9 +174,72 @@ $(".back").on("click", function(){
 	})
 }
 
+// submit comments
+setCommentPostListener = function () {
+	$(".post-comment").on("click", function(){
+
+			comment = $(".rant-box").val().trim()
+			var vexationid = $(".id").text()
+
+			noCommentsElement = ""
+
+			if ((comment.length > 6) && (vexationid.trim() !== "")) {
+				// save the no comments comment card
+				try {
+					noCommentsElement = $('.no-comments')
+				} catch (e) {
+					noCommentsElement = false
+				}
+
+
+
+
+
+				// call doAjaxPost Method
+				// check if there is a pending request
+				if (wait == false) {
+					wait = true
+					time = "31th.Dec.16 05:39pm"
+					doAjaxPost("writes/insert-comment.php", {content: comment, vexationid: vexationid, time: time}, setResult)
+
+				} else {
+					info.text("Please wait ...").show().delay( 2000 ).fadeOut()
+				}
+
+			} else {
+
+				error.text("Comments must be longer than six characters").show().delay( 2000 ).fadeOut()
+			}
+		})
+}
+
 setClickListeners = function () {
 	setBackClickListener()
 	setVexClickListener()
+	setCommentPostListener()
+}
+
+setResult = function (result) {
+	wait = false
+	if (result) {
+
+			var newCommentElement = '<div class="comments-card pending">'+comment+' <span class="inside">'+time+'</span></div>';
+					$('.comments').append(newCommentElement)
+					var OldCommentsCount = parseInt($('.comment-count').text())
+					var newCommentsCount  = OldCommentsCount + 1
+					$('.comment-count').text(newCommentsCount)
+						// check if it exits
+					if (noCommentsElement !== false) {
+						// change it
+						noCommentsElement.remove()
+					}
+					$(".rant-box").val("")
+					success.text("Comment successfully saved").show().delay( 2000 ).fadeOut()
+				} else {
+					//$('.comments').children()[$('.comments').children().length-1].remove()
+
+					error.text("Error saving comment. Please try again").show().delay( 2000 ).fadeOut()
+				}
 }
 
 scrollTo = function () {
@@ -152,3 +248,27 @@ scrollTo = function () {
         scrollTop: $(here).offset().top
     }, 1000)
 }
+
+
+function doAjaxPost (url, data, callBack) {
+	// do ajax
+	$.ajax({
+	  type: "POST",
+	  url: url,
+	  data: data,
+	  success: function(){
+	  	if (typeof(callBack) !== "undefined") {
+
+			callBack(true)
+		}
+	  },
+
+	  error: function (e) {
+	  	if (typeof(callBack) !== "undefined") {
+			callBack(false)
+		}
+	  }
+	})
+}
+
+
