@@ -1,0 +1,1 @@
+<?php include_once "incs/new-post.inc"; ?>

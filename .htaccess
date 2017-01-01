@@ -2,4 +2,5 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !-d
 RewriteRule vexation-(.*) ./?post=$1 [L,NS]
+RewriteRule /post ./#post [L,NS]
 

@@ -2,11 +2,11 @@
 <div class="success alert"></div>
 <div class="info alert"></div>
 <div class="page-header">
-					<div class="brand"><a href="./">I DEYVEX</div>
+					<div class="brand"><a href="//localhost/idv">I DEYVEX</div>
 					<div class="other-links">
-					 	<div class="link-container"><a class= "link primary" href="post/">I dey vex ...</a></div>
-						<div class="link-container"><a class= "link" href="about/">About</a></div>
-						<div class="link-container"><a class= "link" href="trending/">Trending</a></div>
-						<div class="link-container"><a class= "link" href="contact/">Contact</a></div>
+					 	<div class="link-container"><a class= "link primary new-post" href="//localhost/idv/p/post">Post</a></div>
+						<div class="link-container"><a class= "link" href="//localhost/idv/p/about">About</a></div>
+						<div class="link-container"><a class= "link" href="//localhost/idv/p/trending">Trending</a></div>
+						<div class="link-container"><a class= "link" href="//localhost/idv/p/contact">Contact</a></div>
 					</div>
 				</div>

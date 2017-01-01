@@ -9,7 +9,7 @@ $pdo = Database::connect();
            		$comments_count = $row2["count(*)"];
            }
                     ?>
-<div class="nav"><a class= "back" href="./#<?php echo $row['id']; ?>">← Back</a></div>
+<div class="nav"><a class= "back">← Back</a></div>
 <div class="vexation">
 	<div class="vexation-content">
 		<?php echo $row['content']; ?><span class="small-text">— #<span class="id"><?php echo $row['id']; ?></span></span>

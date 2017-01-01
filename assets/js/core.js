@@ -6,10 +6,12 @@
 
 var pageLoader
 
-// this variable is to store the object of the last vexation posted clicked so that we can go back to it when Back is clicked ...
-var lastVexedClicked
-// adnd it's id ...
-var lastVexedClickedID
+var isLoaded = false
+
+// this variable is to store the previous url
+var lastUrl
+// adnd it's scroll position ...
+var lastScrollPos = 0
 
 // messages begin
 var error
@@ -27,8 +29,10 @@ var wait = false
 
 var time
 
+var thisPage
+
 $(document).ready(function() {
-	var thisPage = location.href
+	thisPage = location.href
 	// Save the page loader thingy
 	pageLoader = $('.page-loader')
 
@@ -53,22 +57,36 @@ $(document).ready(function() {
 	// Checking to see if home page contains a hash string
 	if (/http:\/\/localhost\/idv\/#/.test(thisPage)) {
 
-		// prepare the id to be used in scrollTo function
-		lastVexedClickedID = "#"+thisPage.split("#")[1]
 
 		// Now we use ajax to get all the vexations ...
 		loadPage("vexations.php", ".page-content", scrollTo)
 
 	}
 
+	// Checking to see if page is new-post
+	if (/http:\/\/localhost\/idv\/p\/post/.test(thisPage)) {
+
+		// prepare the id to be used in scrollTo function
+		//lastScrollPos = "#"+thisPage.split("#")[1]
+
+		// Now we use ajax to get all the vexations ...
+		loadPage("http://localhost/idv/new-post.php", ".page-content")
+
+	}
+
+
+
 	showSingleVexation()
+
+	setWindowScrollListener()
+
 
 
 })
 
 
 function showSingleVexation () {
-	var thisPage = location.href
+	thisPage = location.href
 	// Checking to see if home page contains a hash string
 	if (/http:\/\/localhost\/idv\/vexation-/.test(thisPage)) {
 
@@ -83,7 +101,7 @@ function showSingleVexation () {
 
 validateLastVexClicked = function () {
 	// check if lastVexClicked is available to be accessed
-		if (typeof(lastVexedClicked) == "undefined") {
+		if (typeof(lastUrl) == "undefined") {
 			$(".back").remove();
 		}
 }
@@ -97,12 +115,19 @@ function loadPage (pageName, putWhere, callBack) {
 	pageLoader.show()
 
 	// ajax call
-	$.post( pageName, function( data ) {
+
+	$.ajax({url:pageName, dataType: "text", accept: "text/html"}).done( function( data ) {
 		// remove loader
 		pageLoader.hide()
+		lastUrl = location.href
 		// insert the data gotten
-		$(putHere).html("")
-		$(putHere).html(data)
+		if ($(putHere).text() !== data) {
+			$(putHere).html("")
+			$(putHere).html(data)
+			//pushHistory(pageName)
+		}
+
+
 
 		// run the callBack funtion if there is one
 		if (typeof(callBack) !== "undefined") {
@@ -111,8 +136,12 @@ function loadPage (pageName, putWhere, callBack) {
 		}
 
 		// load tooltip script
-		var url = "./assets/js/kawo-tooltip.js"
-		$.getScript(url)
+		if (isLoaded == false) {
+			var url = "http://localhost/idv/assets/js/kawo-tooltip.js"
+			$.getScript(url)
+			isLoaded = true;
+		}
+
 
 
 		// vital tool for setting all click listeners since page loades dynamically. We set the listeners when a new page is dynamically loaded
@@ -133,8 +162,6 @@ setVexClickListener = function () {
 
 		// Now we use ajax to get a single vexation
 		showSingleVexation()
-
-		lastVexedClicked = this;
 
 
 		// prevent the browser from navigating to a diff page
@@ -157,17 +184,16 @@ $(".back").on("click", function(){
 		$(".page-content").html(pageLoader)
 
 		// check if lastVexClicked is available to be accessed
-		if (typeof(lastVexedClicked) == "undefined") {
+		if (typeof(lastUrl) == "undefined") {
 			$(".back").hide();
 		}
-		// get id of last vexation post clicked
-		lastVexedClickedID = "#"+lastVexedClicked.getAttribute('id')
 
-		// Now we use ajax to get preveious page
-		loadPage("vexations.php", ".page-content", scrollTo)
+
+		// Now we use ajax to get previous page
+		//loadPage(lastUrl, ".page-content", scrollTo)
 
 		// we change the contents of the address bar for obvious reasons
-		pushHistory(this.getAttribute("href"))
+		//pushHistory(lastUrl)
 
 		// prevent the browser from navigating to a diff page
 		return false
@@ -183,7 +209,7 @@ setCommentPostListener = function () {
 
 			noCommentsElement = ""
 
-			if ((comment.length > 6) && (vexationid.trim() !== "")) {
+			if ((comment.length > 0) && (vexationid.trim() !== "")) {
 				// save the no comments comment card
 				try {
 					noCommentsElement = $('.no-comments')
@@ -191,15 +217,15 @@ setCommentPostListener = function () {
 					noCommentsElement = false
 				}
 
-
-
-
-
 				// call doAjaxPost Method
 				// check if there is a pending request
 				if (wait == false) {
 					wait = true
-					time = "31th.Dec.16 05:39pm"
+					var dateObject = new Date()
+					var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    				time = dateObject.getDate()+"."+month[dateObject.getMonth()]+"."+dateObject.getFullYear().toString().substr(2)+" "+dateObject.toString("hh:mm tt")
+
 					doAjaxPost("writes/insert-comment.php", {content: comment, vexationid: vexationid, time: time}, setResult)
 
 				} else {
@@ -208,15 +234,46 @@ setCommentPostListener = function () {
 
 			} else {
 
-				error.text("Comments must be longer than six characters").show().delay( 2000 ).fadeOut()
+				error.text("Cannot post empty comments").show().delay( 2000 ).fadeOut()
 			}
 		})
+}
+
+// Listen for post button click
+
+setPostClickListener = function () {
+	$(".new-post").unbind("click")
+	$(".new-post").on("click", function(){
+		if (location.href !== "http://localhost/idv/p/post") {
+			loadPage("new-post.php", ".page-content")
+			// we change the contents of the address bar for obvious reasons
+		}
+
+		return false
+	})
+}
+
+// Listen for scroll event
+
+setWindowScrollListener = function () {
+	$(window).on("scroll", function(){
+		if (/http:\/\/localhost\/idv\/#/.test(thisPage)) {
+			lastScrollPos = window.pageYOffset
+			console.log("sCROLED - here")
+		}
+
+		if (location.href == "http://localhost/idv/") {
+			lastScrollPos = window.pageYOffset
+			console.log("sCROLED")
+		}
+	})
 }
 
 setClickListeners = function () {
 	setBackClickListener()
 	setVexClickListener()
 	setCommentPostListener()
+	setPostClickListener()
 }
 
 setResult = function (result) {
@@ -243,10 +300,9 @@ setResult = function (result) {
 }
 
 scrollTo = function () {
-	var here = lastVexedClickedID
-	$('html, body').animate({
-        scrollTop: $(here).offset().top
-    }, 1000)
+	var here = lastScrollPos
+	window.scrollBy(0, lastScrollPos)
+	return true
 }
 
 
@@ -270,5 +326,7 @@ function doAjaxPost (url, data, callBack) {
 	  }
 	})
 }
+
+
 
 

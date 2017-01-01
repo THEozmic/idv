@@ -3,7 +3,7 @@
     width: 30%;
     display: inline-block;
     margin: 0;
-    background-color: #7986CB;
+    background-color: #3b4348;
     position: fixed;
 }
 
@@ -37,7 +37,7 @@ html, body {
 .page-header {
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
-    color: #7986CB;
+    color: #3b4348;
     font-size: 25px;
     padding-top: 30px;
     border-bottom: 5px solid #ebebeb;
@@ -108,14 +108,14 @@ html, body {
 }
 
 .link.primary {
-    background-color: #7986cb;
+    background-color: #3b4348;
     padding: 3px 10px;
     border-radius: 3px;
     color: white;
 }
 
 .link.primary:hover {
-    background-color: #6671ab;
+    background-color: rgba(59, 67, 72, 0.78);
 }
 
 .vexation {
@@ -127,7 +127,7 @@ html, body {
 .emotion {
     font-size: 12px;
     padding: 10px;
-    background-color: #9FA8DA;
+    background-color: #3b4348;
     border-radius: 3px;
     color: white;
 }
@@ -189,7 +189,7 @@ a {
 }
 
 .secondary {
-    background-color: #7986cb;
+    background-color: #3b4348;
     color: white;
     padding: 10px 20px;
     border-radius: 3px;
@@ -225,7 +225,7 @@ a {
 .page-loader {
     margin: 40px auto;
     width: 25px;
-    background-color: #7986cb;
+    background-color: #3b4348;
     height: 25px;
 }
 
