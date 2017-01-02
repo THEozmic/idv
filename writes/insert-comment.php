@@ -28,6 +28,11 @@
             $sql = "INSERT INTO comments (content,date,vexationid) values(?, ?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($content,$date,$vexationid));
+
+            // update vextations
+            $sql = "UPDATE vexations SET comments = comments + 1 WHERE id = ? ";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($vexationid));
             Database::disconnect();
             echo "true";
         }

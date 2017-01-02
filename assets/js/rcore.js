@@ -1,9 +1,10 @@
 var engineIsOn = false
 //// Dynamic page stuff
 
-function engineStart (withThis) {
-	if (typeof(withThis) !== "undefined") {
-		hijackLink(withThis)
+function engineStart (thisPage) {
+	if (typeof(thisPage) !== "undefined") {
+
+		fetchPage(thisPage)
 	}
 	engineIsOn = true
 }
@@ -17,6 +18,9 @@ if (!engineIsOn) {
 	var comment
 	var noCommentsElement
 	var time
+
+
+
 	// called when any link is clicked
 	function hijackLink (link) {
 		fetchPage (link)
@@ -25,6 +29,7 @@ if (!engineIsOn) {
 
 	// method to fetch page using ajax
 	function fetchPage (page) {
+
 
 		if (page !== location.href) {
 			renderPage(pageLoader)
@@ -42,14 +47,32 @@ if (!engineIsOn) {
 		if (page == "http://localhost/idv/") {
 			actualPage = "http://localhost/idv/vexations.php"
 
-		} else {
-			if (page == location.href) {
-				return false
-			}
 		}
 
 		if (/vexation-/.test(page)) {
-			actualPage = "vexation.php?id="+page.split("-")[1]
+			actualPage = "http://localhost/idv/vexation.php?id="+page.split("-")[1]
+		}
+
+		if (/trending/.test(page)) {
+			actualPage = "http://localhost/idv/trending.php"
+		}
+
+		if (/about/.test(page)) {
+			newPage = page
+			renderPage('This na online community to talk, share anything wey dey make you vex.<li>Why you dey vex?</li><li>Wetin dey vex you?</li><li>Who vex you? etc</li>Oya now, share am with people, make people reason am with you and make you happy.This na all language site. We dey allow post for pure English as well as Pidgin too')
+			// unbind first !!!
+			$(".dyna-link").unbind()
+			initListeners()
+			return true
+		}
+
+		if (/contact/.test(page)) {
+			newPage = page
+			renderPage('If you wan yan us anything you fit call us or send us better email<br><br> T: 08012345678<br>E: hello@ideyvex.com')
+			// unbind first !!!
+			$(".dyna-link").unbind()
+			initListeners()
+			return true
 		}
 
 		if (/post/.test(page)) {
@@ -64,7 +87,7 @@ if (!engineIsOn) {
 
 
 		xhr = $.ajax({url:actualPage, dataType: "text", accept: "text/html"}).done( function( pageData ) {
-			console.log(actualPage)
+
 			// remove loader
 			$(".page-loader").hide()
 
@@ -153,7 +176,7 @@ if (!engineIsOn) {
 					  error: function (e) {
 
 					  	$(".error.alert").text("Unable to save. Please try again").show().delay( 5000 ).fadeOut()
-
+					  	button.innerHTML = "POST"
 						$('.action-link').on("click", function(e) {
 								doAction(this.getAttribute("data-action"), this)
 								return false
@@ -163,6 +186,7 @@ if (!engineIsOn) {
 
 				} else {
 					$(".error.alert").text("Unable to save empty post. Please type a post and try again").show().delay( 5000 ).fadeOut()
+
 				}
 
 			}
@@ -184,7 +208,7 @@ if (!engineIsOn) {
 					$('.action-link').unbind()
 					$.ajax({
 					  type: "POST",
-					  url: "writes/insert-comment.php",
+					  url: "writes/comment",
 					  data: {content: comment, time: time, vexationid: vexationid},
 					  success: function(){
 
@@ -236,12 +260,22 @@ if (!engineIsOn) {
 function initListeners() {
 		engineStart()
 		$('.dyna-link').on("click", function(e) {
-			hijackLink(this.getAttribute("href"))
+
+			if (location.href !== this.getAttribute("href")) {
+				hijackLink(this.getAttribute("href"))
+			}
+
+			$('.dyna-link').removeClass('active')
+
+			$(this).addClass('active')
+
 			return false
 		})
 
 		$('.action-link').on("click", function(e) {
+
 			doAction(this.getAttribute("data-action"), this)
+
 			return false
 		})
 
@@ -255,6 +289,11 @@ $(document).ready(function() {
 	$('a').on("click", function() {
 		return false
 	})
+	$("a").each(function(){
+    	if (location.href == this.getAttribute('href')) {
+    		$(this).addClass('active')
+    	}
+	});
 	initListeners()
 	engineStart(location.href)
 })

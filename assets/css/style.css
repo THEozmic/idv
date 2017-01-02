@@ -30,7 +30,7 @@ html, body {
 }
 
 .page-section {
-    margin: 0px 150px;
+    margin: 0px 100px;
     min-height: 100%;
 }
 
@@ -45,13 +45,14 @@ html, body {
 }
 
 .page-content {
-    /* font-size: x-large; */
+    font-size: 20px;
+    margin-top: 10px;
 }
 
 .nav {
     color: #a2a2a2;
     font-family: Roboto,sans-serif;
-    padding-top: 10px;
+    padding-bottom: 10px;
     margin: 0!important;
 }
 
@@ -107,7 +108,7 @@ html, body {
     color: white;
 }
 
-.link.primary {
+.primary {
     background-color: #3b4348;
     padding: 3px 10px;
     border-radius: 3px;
@@ -120,7 +121,7 @@ html, body {
 
 .vexation {
     font-size: 20px;
-    padding: 15px 0px;
+    padding-top: 10px;
     border-bottom: 1px solid #ebebeb;
 }
 
@@ -135,6 +136,7 @@ html, body {
 .vexation-footer {
     display: block;
     padding-top: 10px;
+    padding-bottom: 15px;
 }
 
 .inside {
@@ -165,6 +167,7 @@ a {
     background-color: #ececec;
     border-radius: 3px;
     margin: 10px 0px;
+    word-wrap: break-word;
 }
 
 .comments {
@@ -277,7 +280,7 @@ a {
     color: white;
     padding: 5px;
     position: fixed;
-    width: 47%;
+    width: 54.5%;
     border-radius: 3px;
 }
 
@@ -298,4 +301,18 @@ a {
 
 .secondary:hover {
     background-color: #4d575d;
+}
+
+.active.link {
+    border-bottom: 2px solid #ebebeb;
+}
+
+li {
+    font-size: 15px;
+    margin: 10px;
+}
+
+.username {
+    font-size: 15px;
+    color: rgba(33, 150, 243, 0.35);
 }

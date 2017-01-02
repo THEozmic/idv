@@ -1,14 +1,13 @@
 <?php include_once "model/database.php";
 
 $pdo = Database::connect();
-           $sql = 'SELECT * FROM vexations ORDER BY id DESC';
+           $sql = 'SELECT * FROM vexations ORDER BY novexs DESC';
            foreach ($pdo->query($sql) as $row) {
            	$id = $row['id'];
-
                     ?>
 <div class="vexation" >
 	<div class="vexation-content">
-		<a class="avexation dyna-link" id="<?php echo $row['id']?>" href="vexation-<?php echo $row['id']; ?>"><?php echo $row['content']; ?><span class="small-text">— #<?php echo  $row['id']; ?></span></a>
+		<a class="avexation dyna-link" id="<?php echo $row['id']?>" href="../vexation-<?php echo $row['id']; ?>"><?php echo $row['content']; ?><span class="small-text">— #<?php echo  $row['id']; ?></span></a>
 	</div>
 	<div class="vexation-footer">
 		<a data-tooltip="novex" class="actionable" href="#novex"><span class="novex emotion"><span class="icon novex"></span> <?php echo $row['novexs']; ?></span></a>
