@@ -44,7 +44,7 @@ $pdo = Database::connect();
 	<div class="comments-card">
 			<div class="comments-header">Post a comment</div>
 				<textarea class="rant-box"></textarea>
-				<div class="secondary post-comment">POST</div>
+				<div class="secondary post-comment action-link" data-action="comment">POST</div>
 	</div>
 </div>
 

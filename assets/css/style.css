@@ -195,6 +195,7 @@ a {
     border-radius: 3px;
     display: inline-block;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .comments-header {
@@ -282,15 +283,19 @@ a {
 
 .success.alert {
      display: none;
-     background-color: #2196F3;
+     background-color: #319ef5;
 }
 
 .info.alert {
      display: none;
-     background-color: #7986cb;
+     background-color: #3b4348;
 }
 
 .actionable {
     cursor: pointer;
     padding: 10px 0px;
+}
+
+.secondary:hover {
+    background-color: #4d575d;
 }

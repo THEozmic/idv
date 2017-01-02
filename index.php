@@ -15,6 +15,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src='//localhost/idv/assets/js/core.js'></script>
+	<script type="text/javascript" src='//localhost/idv/assets/js/rcore.js'></script>
 </body>
 </html>

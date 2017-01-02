@@ -2,5 +2,5 @@
 <div class="comments-card">
 			<div class="comments-header">Post watin dey make you vex</div>
 				<textarea class="rant-box"></textarea>
-				<div class="secondary post-comment">POST</div>
+				<div class="secondary post-comment" data-action="post">POST</div>
 	</div>
